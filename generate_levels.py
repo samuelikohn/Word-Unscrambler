@@ -5,7 +5,6 @@ from os import path
 
 words = [
     # Put your words here
-    "absolute"
 ]
 
 for word in words:
@@ -24,6 +23,7 @@ for word in words:
     # Enforce pangram rule
     if word not in res:
         print(f"\"{word}\" not found in dictionary, no level was created.")
+        continue
 
     letters = [letter.upper() for letter in word]
     data = {

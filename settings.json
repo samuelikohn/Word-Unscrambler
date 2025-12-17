@@ -1,5 +1,5 @@
 {
-    "level_pass_threshold": 0.5,
+    "level_pass_threshold": 0.3,
     "starting_time": 1800,
     "starting_min_length": 4,
     "starting_num_hidden": 0,

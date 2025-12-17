@@ -588,7 +588,7 @@ class PauseGame(Page):
         self.add_widget(
             widget_class=QPushButton,
             x=1 / 3,
-            y=1 / 2,
+            y=1 / 3,
             width=1 / 3,
             height=1 / 12,
             text="Resume Game",
@@ -607,6 +607,30 @@ class PauseGame(Page):
             font=1 / 60,
             connect=lambda: main.go_to_page(QuitGame, destroy=self),
             cursor=QCursor(Qt.CursorShape.PointingHandCursor)
+        )
+
+        # Stat names
+        self.add_widget(
+            widget_class=QLabel,
+            x=1 / 3,
+            y=1 / 2,
+            width=1 / 4,
+            height=1 / 3,
+            text="Current Level:\nTime per Level:\nMinimum Word Length:\nNumber of Hidden Letters:\nNumber of Fake Letters:\nDifficulty Increase Every:",
+            font=1 / 60,
+            alignment=Qt.AlignmentFlag.AlignLeft
+        )
+
+        # Stat values
+        self.add_widget(
+            widget_class=QLabel,
+            x=7 / 12,
+            y=1 / 2,
+            width=1 / 12,
+            height=1 / 3,
+            text=f"{main.Game.level_count}\n{main.Game.time // 10} seconds\n{main.Game.min_length} letters\n{main.Game.num_hidden_letters}\n{main.Game.num_fake_letters}\n{main.Game.levels_per_buff} levels",
+            font=1 / 60,
+            alignment=Qt.AlignmentFlag.AlignRight
         )
 
 
