@@ -1,0 +1,43 @@
+{
+    "letters": [
+        "D",
+        "E",
+        "C",
+        "A",
+        "D",
+        "E",
+        "S"
+    ],
+    "words": [
+        "aced",
+        "aces",
+        "adds",
+        "cade",
+        "cads",
+        "case",
+        "cede",
+        "cees",
+        "dace",
+        "dads",
+        "dead",
+        "deed",
+        "dees",
+        "ease",
+        "sade",
+        "scad",
+        "seed",
+        "aedes",
+        "cades",
+        "cased",
+        "cease",
+        "ceded",
+        "cedes",
+        "daces",
+        "deads",
+        "deeds",
+        "eased",
+        "ceased",
+        "decade",
+        "decades"
+    ]
+}
