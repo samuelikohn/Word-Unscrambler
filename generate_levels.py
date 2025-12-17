@@ -21,6 +21,10 @@ for word in words:
         if len(text_value) >= 4: # Global min length is 4
             res.append(text_value)
 
+    # Enforce pangram rule
+    if word not in res:
+        print(f"\"{word}\" not found in dictionary, no level was created.")
+
     letters = [letter.upper() for letter in word]
     data = {
         "letters": letters,
@@ -29,3 +33,4 @@ for word in words:
 
     with open(f"{path.dirname(path.abspath(__file__))}/levels/{word}.json", "w") as f:
         dump(data, f, indent=4)
+    print(f"Level file for \"{word}\" successfully created.")
