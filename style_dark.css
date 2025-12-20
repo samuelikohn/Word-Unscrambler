@@ -13,6 +13,14 @@ QPushButton:hover {
     color: #000000;
     background-color: #5ed0f2;
     border: 6px solid #0198c5;
+    outline: 0;
+}
+
+QPushButton:focus {
+    color: #000000;
+    background-color: #5ed0f2;
+    border: 6px solid #0198c5;
+    outline: 0;
 }
 
 QMainWindow {
