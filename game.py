@@ -41,7 +41,8 @@ class Game(Page):
             text="Pause Game",
             font=1 / 60,
             connect=self.pause_game,
-            cursor=QCursor(Qt.CursorShape.PointingHandCursor)
+            cursor=QCursor(Qt.CursorShape.PointingHandCursor),
+            esc=True
         )
 
         # Required Words Number
@@ -260,10 +261,10 @@ class Game(Page):
 
     def update_words_found(self):
         req = ceil(self.level_pass_threshold * self.total_letters)
-        if self.play_letters.num_found_letters > req:
-            self.num_req.setText(f"Letters Found (Total):\n{self.play_letters.num_found_letters} / {self.total_letters}")
+        if self.play_letters.num_found_letters >= req:
+            self.num_req.setText("Level Passed!")
         else:
-            self.num_req.setText(f"Letters Found (Required):\n{self.play_letters.num_found_letters} / {req}")
+            self.num_req.setText(f"Letters Found:\n{self.play_letters.num_found_letters} / {req}")
 
 
 class PlayLetters:
@@ -366,8 +367,10 @@ class PlayLetters:
         for letter in self.played_letters:
             letter.deleteLater()
         self.played_letters.clear()
-        self.timer.stop()
-        self.timer.deleteLater()
+        if self.timer:
+            self.timer.stop()
+            self.timer.deleteLater()
+            self.timer = None
 
     def enter_word(self):
         word = "".join([letter.letter for letter in self.played_letters]).lower()
@@ -563,7 +566,8 @@ class GameOver(Page):
             height=1 / 12,
             text="Return to Main Menu",
             connect=lambda: self.main.go_to_page(destroy=self),
-            font=1 / 30
+            font=1 / 30,
+            esc=True
         )
 
 
@@ -593,7 +597,8 @@ class PauseGame(Page):
             height=1 / 12,
             text="Resume Game",
             connect=main.Game.resume_game,
-            font=1 / 30
+            font=1 / 30,
+            esc=True
         )
 
         # Quit game btn
@@ -675,7 +680,8 @@ class QuitGame(Page):
             text="No",
             font=1 / 40,
             connect=lambda: self.main.go_to_page(PauseGame, destroy=self),
-            cursor=QCursor(Qt.CursorShape.PointingHandCursor)
+            cursor=QCursor(Qt.CursorShape.PointingHandCursor),
+            esc=True
         )
 
     def return_to_main_menu(self):
@@ -735,3 +741,66 @@ class EndOfLevel(Page):
             alignment=Qt.AlignmentFlag.AlignCenter,
             text=main.Game.buff
         )
+
+        self.add_widget(
+            widget_class=QPushButton,
+            x=9 / 10,
+            y=1 / 360,
+            width=63 / 640,
+            height=2 / 45,
+            text="Quit Game",
+            font=1 / 60,
+            connect=lambda: main.go_to_page(QuitGameEOL, destroy=self),
+            cursor=QCursor(Qt.CursorShape.PointingHandCursor),
+            esc=True
+        )
+
+
+class QuitGameEOL(Page):
+
+    def __init__(self, main):
+        super().__init__(main)
+        self.main = main
+
+        # Confirm Quit Text
+        self.add_widget(
+            widget_class=QLabel,
+            x=0,
+            y=1 / 5,
+            width=1,
+            height=1 / 10,
+            text="Are you sure you want to quit?",
+            font=1 / 30,
+            alignment=Qt.AlignmentFlag.AlignCenter
+        )
+
+        # Confirm Quit Yes Button
+        self.add_widget(
+            widget_class=QPushButton,
+            x=3 / 8,
+            y=1 / 2,
+            width=1 / 16,
+            height=1 / 12,
+            text="Yes",
+            font=1 / 40,
+            connect=self.return_to_main_menu,
+            cursor=QCursor(Qt.CursorShape.PointingHandCursor)
+        )
+
+        # Confirm Quit No Button
+        self.add_widget(
+            widget_class=QPushButton,
+            x=9 / 16,
+            y=1 / 2,
+            width=1 / 16,
+            height=1 / 12,
+            text="No",
+            font=1 / 40,
+            connect=lambda: self.main.go_to_page(EndOfLevel, destroy=self),
+            cursor=QCursor(Qt.CursorShape.PointingHandCursor),
+            esc=True
+        )
+
+    def return_to_main_menu(self):
+        self.main.Game.destroy()
+        self.main.go_to_page(destroy=self)

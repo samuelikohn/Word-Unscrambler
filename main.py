@@ -6,6 +6,13 @@ from PyQt6.QtCore import QEvent, QObject, Qt
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget
 
+# flag hidden letters with typed letter, evaluate based on flag
+    # add visual cue
+# guessing field not showing?
+# Key bindings
+    # arrow navigation and tab order for each widget
+    # space/enter for each button
+    # arrows for spinboxes
 
 class Main:
 
@@ -52,9 +59,7 @@ class Main:
         self.go_to_page()
         
 
-# Keyboard hooks for typing, deletion (Backspace), shuffle (Space), and enter word (Enter)
 class KeyboardHooks(QObject):
-    
     def eventFilter(self, obj, event):
         if hasattr(self.main, "Game") and self.main.Game and self.main.Game.active and event.type() == QEvent.Type.KeyPress:
             match event.key():
@@ -63,6 +68,8 @@ class KeyboardHooks(QObject):
                 case Qt.Key.Key_Backspace:
                     self.main.Game.play_letters.delete_letter()
                 case Qt.Key.Key_Return:
+                    self.main.Game.play_letters.enter_word()
+                case Qt.Key.Key_Enter:
                     self.main.Game.play_letters.enter_word()
                 case Qt.Key.Key_A:
                     self.main.Game.play_letters.type_letter("A")
@@ -116,7 +123,62 @@ class KeyboardHooks(QObject):
                     self.main.Game.play_letters.type_letter("Y")
                 case Qt.Key.Key_Z:
                     self.main.Game.play_letters.type_letter("Z")
+                case Qt.Key.Key_Escape:
+                    self.main.Game.esc()
             return True
+        
+        elif hasattr(self.main, "PauseGame") and self.main.PauseGame and event.type() == QEvent.Type.KeyPress and event.key() == Qt.Key.Key_Escape:
+            self.main.PauseGame.esc()
+            return True
+        
+        elif hasattr(self.main, "GameOver") and self.main.GameOver and event.type() == QEvent.Type.KeyPress and event.key() == Qt.Key.Key_Escape:
+            self.main.GameOver.esc()
+            return True
+        
+        elif hasattr(self.main, "QuitGame") and self.main.QuitGame and event.type() == QEvent.Type.KeyPress and event.key() == Qt.Key.Key_Escape:
+            self.main.QuitGame.esc()
+            return True
+        
+        elif hasattr(self.main, "EndOfLevel") and self.main.EndOfLevel and event.type() == QEvent.Type.KeyPress and event.key() == Qt.Key.Key_Escape:
+            self.main.EndOfLevel.esc()
+            return True
+        
+        elif hasattr(self.main, "QuitGameEOL") and self.main.QuitGameEOL and event.type() == QEvent.Type.KeyPress and event.key() == Qt.Key.Key_Escape:
+            self.main.QuitGameEOL.esc()
+            return True
+        
+        elif hasattr(self.main, "MainMenu") and self.main.MainMenu and event.type() == QEvent.Type.KeyPress and event.key() == Qt.Key.Key_Escape:
+            self.main.MainMenu.esc()
+            return True
+        
+        elif hasattr(self.main, "ExitApp") and self.main.ExitApp and event.type() == QEvent.Type.KeyPress and event.key() == Qt.Key.Key_Escape:
+            self.main.ExitApp.esc()
+            return True
+        
+        elif hasattr(self.main, "MainMenu") and self.main.MainMenu and event.type() == QEvent.Type.KeyPress and event.key() == Qt.Key.Key_Escape:
+            self.main.MainMenu.esc()
+            return True
+        
+        elif hasattr(self.main, "Settings") and self.main.Settings and event.type() == QEvent.Type.KeyPress and event.key() == Qt.Key.Key_Escape:
+            self.main.Settings.esc()
+            return True
+        
+        elif hasattr(self.main, "Tutorial0") and self.main.Tutorial0 and event.type() == QEvent.Type.KeyPress and event.key() == Qt.Key.Key_Escape:
+            self.main.Tutorial0.esc()
+            return True
+        
+        elif hasattr(self.main, "Tutorial1") and self.main.Tutorial1 and event.type() == QEvent.Type.KeyPress and event.key() == Qt.Key.Key_Escape:
+            self.main.Tutorial1.esc()
+            return True
+        
+        elif hasattr(self.main, "Tutorial2") and self.main.Tutorial2 and event.type() == QEvent.Type.KeyPress and event.key() == Qt.Key.Key_Escape:
+            self.main.Tutorial2.esc()
+            return True
+        
+        elif hasattr(self.main, "Tutorial3") and self.main.Tutorial3 and event.type() == QEvent.Type.KeyPress and event.key() == Qt.Key.Key_Escape:
+            self.main.Tutorial3.esc()
+            return True
+        
         return super().eventFilter(obj, event)
     
     def __init__(self, main):

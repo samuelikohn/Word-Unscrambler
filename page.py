@@ -36,7 +36,8 @@ class Page:
             suffix=None,
             single_step=None,
             value_connect=None,
-            read_only=None
+            read_only=None,
+            esc=False
         ):
 
         new_widget = widget_class(parent) if parent else widget_class(self.main.central_widget)
@@ -70,6 +71,7 @@ class Page:
         if suffix: new_widget.setSuffix(suffix)
         if single_step: new_widget.setSingleStep(single_step)
         if read_only: new_widget.lineEdit().setReadOnly(True)
+        if esc: self.esc_button = new_widget
         if pixmap: new_widget.setPixmap(
             QPixmap(pixmap).scaled(
                 QSize(int(self.main.screen_width * width), int(self.main.screen_height * height)),
@@ -85,3 +87,6 @@ class Page:
             widget.deleteLater()
 
         setattr(self.main, self.__class__.__name__, None)
+
+    def esc(self):
+        self.esc_button.click()

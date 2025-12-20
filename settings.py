@@ -48,7 +48,8 @@ class Settings(Page):
             font=1 / 60,
             connect=lambda: self.main.go_to_page(destroy=self),
             cursor=QCursor(Qt.CursorShape.PointingHandCursor),
-            css_class="settings_text"
+            css_class="settings_text",
+            esc=True
         )
 
         # Level pass threshold text

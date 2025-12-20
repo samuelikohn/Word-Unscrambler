@@ -31,7 +31,8 @@ class Tutorial0(Page):
             text="Return to Menu",
             font=1 / 60,
             connect=lambda: self.main.go_to_page(destroy=self),
-            cursor=QCursor(Qt.CursorShape.PointingHandCursor)
+            cursor=QCursor(Qt.CursorShape.PointingHandCursor),
+            esc=True
         )
 
         # Expo Dump
@@ -86,7 +87,8 @@ class Tutorial1(Page):
             text="Return to Menu",
             font=1 / 60,
             connect=lambda: self.main.go_to_page(destroy=self),
-            cursor=QCursor(Qt.CursorShape.PointingHandCursor)
+            cursor=QCursor(Qt.CursorShape.PointingHandCursor),
+            esc=True
         )
 
         # Expo Dump
@@ -155,7 +157,8 @@ class Tutorial2(Page):
             text="Return to Menu",
             font=1 / 60,
             connect=lambda: self.main.go_to_page(destroy=self),
-            cursor=QCursor(Qt.CursorShape.PointingHandCursor)
+            cursor=QCursor(Qt.CursorShape.PointingHandCursor),
+            esc=True
         )
 
         # Buff list
@@ -236,7 +239,8 @@ class Tutorial3(Page):
             text="Return to Menu",
             font=1 / 60,
             connect=lambda: self.main.go_to_page(destroy=self),
-            cursor=QCursor(Qt.CursorShape.PointingHandCursor)
+            cursor=QCursor(Qt.CursorShape.PointingHandCursor),
+            esc=True
         )
 
         # Expo Dump

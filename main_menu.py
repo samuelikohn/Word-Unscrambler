@@ -77,7 +77,8 @@ class MainMenu(Page):
             text="Exit Game",
             font=1 / 60,
             connect=lambda: self.main.go_to_page(ExitApp, self),
-            cursor=QCursor(Qt.CursorShape.PointingHandCursor)
+            cursor=QCursor(Qt.CursorShape.PointingHandCursor),
+            esc=True
         )
 
 
@@ -121,5 +122,6 @@ class ExitApp(Page):
             text="No",
             font=1 / 40,
             connect=lambda: self.main.go_to_page(destroy=self),
-            cursor=QCursor(Qt.CursorShape.PointingHandCursor)
+            cursor=QCursor(Qt.CursorShape.PointingHandCursor),
+            esc=True
         )
