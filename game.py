@@ -3,8 +3,9 @@ from math import ceil
 from page import Page
 from PyQt6.QtCore import Qt, QTimer
 from PyQt6.QtGui import QCursor
-from PyQt6.QtWidgets import QLabel, QPushButton, QScrollArea, QWidget
+from PyQt6.QtWidgets import QLabel, QScrollArea, QWidget
 from random import choice, shuffle, randint
+from ui import Button
 
 class Game(Page):
 
@@ -22,7 +23,7 @@ class Game(Page):
         self.buff = ""
 
         # Guessing Text Field
-        self.add_widget(
+        guess_field = self.add_widget(
             widget_class=QLabel,
             x=1 / 20,
             y=11 / 24,
@@ -30,10 +31,12 @@ class Game(Page):
             height=1 / 160,
             css_class="guessed_letters"
         )
+        guess_field.style().unpolish(guess_field)
+        guess_field.style().polish(guess_field)
 
         # Pause Game Button
-        self.add_widget(
-            widget_class=QPushButton,
+        pause_btn = self.add_widget(
+            widget_class=Button,
             x=9 / 10,
             y=1 / 360,
             width=63 / 640,
@@ -105,6 +108,8 @@ class Game(Page):
             widget_class=QTimer,
             timer_connect=self.update_timer_bar
         )
+
+        pause_btn.setFocus()
 
         # Start game
         self.start_level()
@@ -558,8 +563,8 @@ class GameOver(Page):
         )
 
         # Return to menu btn
-        self.add_widget(
-            widget_class=QPushButton,
+        menu_btn = self.add_widget(
+            widget_class=Button,
             x=1 / 3,
             y=1 / 2,
             width=1 / 3,
@@ -569,6 +574,8 @@ class GameOver(Page):
             font=1 / 30,
             esc=True
         )
+
+        menu_btn.setFocus()
 
 
 class PauseGame(Page):
@@ -589,8 +596,8 @@ class PauseGame(Page):
         )
 
         # Return to game btn
-        self.add_widget(
-            widget_class=QPushButton,
+        resume_btn = self.add_widget(
+            widget_class=Button,
             x=1 / 3,
             y=1 / 3,
             width=1 / 3,
@@ -602,8 +609,8 @@ class PauseGame(Page):
         )
 
         # Quit game btn
-        self.add_widget(
-            widget_class=QPushButton,
+        quit_btn = self.add_widget(
+            widget_class=Button,
             x=9 / 10,
             y=1 / 360,
             width=63 / 640,
@@ -633,10 +640,16 @@ class PauseGame(Page):
             y=1 / 2,
             width=1 / 12,
             height=1 / 3,
-            text=f"{main.Game.level_count}\n{main.Game.time // 10} seconds\n{main.Game.min_length} letters\n{main.Game.num_hidden_letters}\n{main.Game.num_fake_letters}\n{main.Game.levels_per_buff} levels",
+            text=f"{main.Game.level_count}\n{int(main.Game.time // 10)} seconds\n{main.Game.min_length} letters\n{main.Game.num_hidden_letters}\n{main.Game.num_fake_letters}\n{main.Game.levels_per_buff} levels",
             font=1 / 60,
             alignment=Qt.AlignmentFlag.AlignRight
         )
+
+        # Arrow navigation
+        resume_btn.arrow_navigation(up=quit_btn, down=quit_btn)
+        quit_btn.arrow_navigation(up=resume_btn, down=resume_btn)
+
+        resume_btn.setFocus()    
 
 
 class QuitGame(Page):
@@ -658,8 +671,8 @@ class QuitGame(Page):
         )
 
         # Confirm Quit Yes Button
-        self.add_widget(
-            widget_class=QPushButton,
+        exit_yes_btn = self.add_widget(
+            widget_class=Button,
             x=3 / 8,
             y=1 / 2,
             width=1 / 16,
@@ -671,8 +684,8 @@ class QuitGame(Page):
         )
 
         # Confirm Quit No Button
-        self.add_widget(
-            widget_class=QPushButton,
+        exit_no_btn = self.add_widget(
+            widget_class=Button,
             x=9 / 16,
             y=1 / 2,
             width=1 / 16,
@@ -683,6 +696,12 @@ class QuitGame(Page):
             cursor=QCursor(Qt.CursorShape.PointingHandCursor),
             esc=True
         )
+
+        # Arrow navigation
+        exit_yes_btn.arrow_navigation(left=exit_no_btn, right=exit_no_btn)
+        exit_no_btn.arrow_navigation(left=exit_yes_btn, right=exit_yes_btn)
+
+        exit_no_btn.setFocus()
 
     def return_to_main_menu(self):
         self.main.Game.destroy()
@@ -719,8 +738,8 @@ class EndOfLevel(Page):
         )
 
         # Next level btn
-        self.add_widget(
-            widget_class=QPushButton,
+        next_level_btn = self.add_widget(
+            widget_class=Button,
             x=1 / 3,
             y=1 / 2,
             width=1 / 3,
@@ -742,8 +761,8 @@ class EndOfLevel(Page):
             text=main.Game.buff
         )
 
-        self.add_widget(
-            widget_class=QPushButton,
+        quit_btn = self.add_widget(
+            widget_class=Button,
             x=9 / 10,
             y=1 / 360,
             width=63 / 640,
@@ -754,6 +773,12 @@ class EndOfLevel(Page):
             cursor=QCursor(Qt.CursorShape.PointingHandCursor),
             esc=True
         )
+
+        # Arrow navigation
+        next_level_btn.arrow_navigation(up=quit_btn, down=quit_btn)
+        quit_btn.arrow_navigation(up=next_level_btn, down=next_level_btn)
+
+        next_level_btn.setFocus()   
 
 
 class QuitGameEOL(Page):
@@ -775,8 +800,8 @@ class QuitGameEOL(Page):
         )
 
         # Confirm Quit Yes Button
-        self.add_widget(
-            widget_class=QPushButton,
+        exit_yes_btn = self.add_widget(
+            widget_class=Button,
             x=3 / 8,
             y=1 / 2,
             width=1 / 16,
@@ -788,8 +813,8 @@ class QuitGameEOL(Page):
         )
 
         # Confirm Quit No Button
-        self.add_widget(
-            widget_class=QPushButton,
+        exit_no_btn = self.add_widget(
+            widget_class=Button,
             x=9 / 16,
             y=1 / 2,
             width=1 / 16,
@@ -800,6 +825,12 @@ class QuitGameEOL(Page):
             cursor=QCursor(Qt.CursorShape.PointingHandCursor),
             esc=True
         )
+
+        # Arrow navigation
+        exit_yes_btn.arrow_navigation(left=exit_no_btn, right=exit_no_btn)
+        exit_no_btn.arrow_navigation(left=exit_yes_btn, right=exit_yes_btn)
+
+        exit_no_btn.setFocus()
 
     def return_to_main_menu(self):
         self.main.Game.destroy()

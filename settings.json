@@ -1,6 +1,6 @@
 {
-    "level_pass_threshold": 0.3,
-    "starting_time": 600,
+    "level_pass_threshold": 0.1,
+    "starting_time": 300,
     "starting_min_length": 4,
     "starting_num_hidden": 0,
     "starting_num_fake": 0,

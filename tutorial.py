@@ -1,7 +1,8 @@
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QCursor
-from PyQt6.QtWidgets import QLabel, QPushButton
+from PyQt6.QtWidgets import QLabel
 from page import Page
+from ui import Button
 
 
 class Tutorial0(Page):
@@ -22,8 +23,8 @@ class Tutorial0(Page):
         )
 
         # Return to Menu Button
-        self.add_widget(
-            widget_class=QPushButton,
+        menu_btn = self.add_widget(
+            widget_class=Button,
             x=17 / 20,
             y=1 / 360,
             width=95 / 640,
@@ -48,8 +49,8 @@ class Tutorial0(Page):
         )
 
         # Next Page Button
-        self.add_widget(
-            widget_class=QPushButton,
+        next_page_btn = self.add_widget(
+            widget_class=Button,
             x=17 / 20,
             y=343 / 360,
             width=95 / 640,
@@ -59,6 +60,12 @@ class Tutorial0(Page):
             connect=lambda: self.main.go_to_page(Tutorial1, destroy=self),
             cursor=QCursor(Qt.CursorShape.PointingHandCursor)
         )
+
+        # Arrow navigation
+        next_page_btn.arrow_navigation(up=menu_btn, down=menu_btn)
+        menu_btn.arrow_navigation(up=next_page_btn, down=next_page_btn)
+
+        next_page_btn.setFocus()
 
 
 class Tutorial1(Page):
@@ -78,8 +85,8 @@ class Tutorial1(Page):
         )
 
         # Return to Menu Button
-        self.add_widget(
-            widget_class=QPushButton,
+        menu_btn = self.add_widget(
+            widget_class=Button,
             x=17 / 20,
             y=1 / 360,
             width=95 / 640,
@@ -104,8 +111,8 @@ class Tutorial1(Page):
         )
 
         # Prev Page Button
-        self.add_widget(
-            widget_class=QPushButton,
+        prev_page_btn = self.add_widget(
+            widget_class=Button,
             x=1 / 640,
             y=343 / 360,
             width=95 / 640,
@@ -117,8 +124,8 @@ class Tutorial1(Page):
         )
 
         # Next Page Button
-        self.add_widget(
-            widget_class=QPushButton,
+        next_page_btn = self.add_widget(
+            widget_class=Button,
             x=17 / 20,
             y=343 / 360,
             width=95 / 640,
@@ -128,6 +135,13 @@ class Tutorial1(Page):
             connect=lambda: self.main.go_to_page(Tutorial2, destroy=self),
             cursor=QCursor(Qt.CursorShape.PointingHandCursor)
         )
+
+        # Arrow navigation
+        next_page_btn.arrow_navigation(left=prev_page_btn, right=prev_page_btn, up=menu_btn, down=menu_btn)
+        prev_page_btn.arrow_navigation(left=next_page_btn, right=next_page_btn, up=menu_btn, down=menu_btn)
+        menu_btn.arrow_navigation(left=prev_page_btn, right=prev_page_btn, up=next_page_btn, down=next_page_btn)
+
+        next_page_btn.setFocus()
 
 
 class Tutorial2(Page):
@@ -148,8 +162,8 @@ class Tutorial2(Page):
         )
 
         # Return to Menu Button
-        self.add_widget(
-            widget_class=QPushButton,
+        menu_btn = self.add_widget(
+            widget_class=Button,
             x=17 / 20,
             y=1 / 360,
             width=95 / 640,
@@ -186,8 +200,8 @@ class Tutorial2(Page):
         )
 
         # Prev Page Button
-        self.add_widget(
-            widget_class=QPushButton,
+        prev_page_btn = self.add_widget(
+            widget_class=Button,
             x=1 / 640,
             y=343 / 360,
             width=95 / 640,
@@ -199,8 +213,8 @@ class Tutorial2(Page):
         )
 
         # Next Page Button
-        self.add_widget(
-            widget_class=QPushButton,
+        next_page_btn = self.add_widget(
+            widget_class=Button,
             x=17 / 20,
             y=343 / 360,
             width=95 / 640,
@@ -210,6 +224,13 @@ class Tutorial2(Page):
             connect=lambda: self.main.go_to_page(Tutorial3, destroy=self),
             cursor=QCursor(Qt.CursorShape.PointingHandCursor)
         )
+        
+        # Arrow navigation
+        next_page_btn.arrow_navigation(left=prev_page_btn, right=prev_page_btn, up=menu_btn, down=menu_btn)
+        prev_page_btn.arrow_navigation(left=next_page_btn, right=next_page_btn, up=menu_btn, down=menu_btn)
+        menu_btn.arrow_navigation(left=prev_page_btn, right=prev_page_btn, up=next_page_btn, down=next_page_btn)
+
+        next_page_btn.setFocus()
 
 
 class Tutorial3(Page):
@@ -230,8 +251,8 @@ class Tutorial3(Page):
         )
 
         # Return to Menu Button
-        self.add_widget(
-            widget_class=QPushButton,
+        menu_btn = self.add_widget(
+            widget_class=Button,
             x=17 / 20,
             y=1 / 360,
             width=95 / 640,
@@ -256,8 +277,8 @@ class Tutorial3(Page):
         )
 
         # Prev Page Button
-        self.add_widget(
-            widget_class=QPushButton,
+        prev_page_btn = self.add_widget(
+            widget_class=Button,
             x=1 / 640,
             y=343 / 360,
             width=95 / 640,
@@ -267,3 +288,9 @@ class Tutorial3(Page):
             connect=lambda: self.main.go_to_page(Tutorial2, destroy=self),
             cursor=QCursor(Qt.CursorShape.PointingHandCursor)
         )
+
+        # Arrow navigation
+        prev_page_btn.arrow_navigation(left=menu_btn, right=menu_btn, up=menu_btn, down=menu_btn)
+        menu_btn.arrow_navigation(left=prev_page_btn, right=prev_page_btn, up=prev_page_btn, down=prev_page_btn)
+
+        prev_page_btn.setFocus()

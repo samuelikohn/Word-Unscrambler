@@ -3,9 +3,10 @@ from os import listdir
 from page import Page
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QCursor
-from PyQt6.QtWidgets import QLabel, QPushButton
+from PyQt6.QtWidgets import QLabel
 from settings import Settings
 from tutorial import Tutorial0
+from ui import Button
 
 
 class MainMenu(Page):
@@ -29,8 +30,8 @@ class MainMenu(Page):
         )
 
         # Start Game Button
-        self.add_widget(
-            widget_class=QPushButton,
+        start_game_btn = self.add_widget(
+            widget_class=Button,
             x=3 / 8,
             y=9 / 20,
             width=1 / 4,
@@ -42,8 +43,8 @@ class MainMenu(Page):
         )
 
         # Tutorial Button
-        self.add_widget(
-            widget_class=QPushButton,
+        tutorial_btn = self.add_widget(
+            widget_class=Button,
             x=3 / 8,
             y=3 / 5,
             width=1 / 4,
@@ -55,8 +56,8 @@ class MainMenu(Page):
         )
 
         # Settings Button
-        self.add_widget(
-            widget_class=QPushButton,
+        settings_btn = self.add_widget(
+            widget_class=Button,
             x=3 / 8,
             y=3 / 4,
             width=1 / 4,
@@ -68,8 +69,8 @@ class MainMenu(Page):
         )
 
         # Exit App Button
-        self.add_widget(
-            widget_class=QPushButton,
+        exit_app_btn = self.add_widget(
+            widget_class=Button,
             x=9 / 10,
             y=1 / 360,
             width=63 / 640,
@@ -80,6 +81,14 @@ class MainMenu(Page):
             cursor=QCursor(Qt.CursorShape.PointingHandCursor),
             esc=True
         )
+
+        # Arrow navigation
+        start_game_btn.arrow_navigation(left=exit_app_btn, right=exit_app_btn, up=exit_app_btn, down=tutorial_btn)
+        tutorial_btn.arrow_navigation(left=exit_app_btn, right=exit_app_btn, up=start_game_btn, down=settings_btn)
+        settings_btn.arrow_navigation(left=exit_app_btn, right=exit_app_btn, up=tutorial_btn, down=exit_app_btn)
+        exit_app_btn.arrow_navigation(left=start_game_btn, right=start_game_btn, up=settings_btn, down=start_game_btn)
+        
+        start_game_btn.setFocus()
 
 
 class ExitApp(Page):
@@ -100,8 +109,8 @@ class ExitApp(Page):
         )
 
         # Confirm Exit Yes Button
-        self.add_widget(
-            widget_class=QPushButton,
+        exit_yes_btn = self.add_widget(
+            widget_class=Button,
             x=3 / 8,
             y=1 / 2,
             width=1 / 16,
@@ -113,8 +122,8 @@ class ExitApp(Page):
         )
 
         # Confirm Exit No Button
-        self.add_widget(
-            widget_class=QPushButton,
+        exit_no_btn = self.add_widget(
+            widget_class=Button,
             x=9 / 16,
             y=1 / 2,
             width=1 / 16,
@@ -125,3 +134,9 @@ class ExitApp(Page):
             cursor=QCursor(Qt.CursorShape.PointingHandCursor),
             esc=True
         )
+
+        # Arrow navigation
+        exit_yes_btn.arrow_navigation(left=exit_no_btn, right=exit_no_btn)
+        exit_no_btn.arrow_navigation(left=exit_yes_btn, right=exit_yes_btn)
+
+        exit_no_btn.setFocus()

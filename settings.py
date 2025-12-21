@@ -2,7 +2,8 @@ from json import dump
 from page import Page
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QCursor
-from PyQt6.QtWidgets import QLabel, QPushButton, QSpinBox
+from PyQt6.QtWidgets import QLabel
+from ui import Button, SpinBox
 
 
 class Settings(Page):
@@ -38,8 +39,8 @@ class Settings(Page):
         )
 
         # Return to Menu Button
-        self.add_widget(
-            widget_class=QPushButton,
+        menu_btn = self.add_widget(
+            widget_class=Button,
             x=17 / 20,
             y=1 / 360,
             width=95 / 640,
@@ -66,7 +67,7 @@ class Settings(Page):
 
         # Level pass threshold spinbox
         self.level_pass_threshold = self.add_widget(
-            widget_class=QSpinBox,
+            widget_class=SpinBox,
             x=7 / 24,
             y=3 / 8,
             width=1 / 8,
@@ -95,7 +96,7 @@ class Settings(Page):
 
         # Starting time spinbox
         self.starting_time = self.add_widget(
-            widget_class=QSpinBox,
+            widget_class=SpinBox,
             x=7 / 24,
             y=1 / 2,
             width=1 / 8,
@@ -124,7 +125,7 @@ class Settings(Page):
 
         # Min length spinbox
         self.min_word_length = self.add_widget(
-            widget_class=QSpinBox,
+            widget_class=SpinBox,
             x=7 / 24,
             y=5 / 8,
             width=1 / 8,
@@ -152,7 +153,7 @@ class Settings(Page):
 
         # Num hidden spinbox
         self.num_hidden = self.add_widget(
-            widget_class=QSpinBox,
+            widget_class=SpinBox,
             x=19 / 24,
             y=3 / 8,
             width=1 / 8,
@@ -180,7 +181,7 @@ class Settings(Page):
 
         # Num fake spinbox
         self.num_fake = self.add_widget(
-            widget_class=QSpinBox,
+            widget_class=SpinBox,
             x=19 / 24,
             y=1 / 2,
             width=1 / 8,
@@ -208,7 +209,7 @@ class Settings(Page):
 
         # Levels per buff spinbox
         self.levels_per_buff = self.add_widget(
-            widget_class=QSpinBox,
+            widget_class=SpinBox,
             x=19 / 24,
             y=5 / 8,
             width=1 / 8,
@@ -236,7 +237,7 @@ class Settings(Page):
 
         # Theme button
         self.theme_button = self.add_widget(
-            widget_class=QPushButton,
+            widget_class=Button,
             text=self.main.settings["theme"].title(),
             font=1 / 60,
             x=1 / 3,
@@ -249,7 +250,7 @@ class Settings(Page):
 
         # Reset to defaults
         self.reset_button = self.add_widget(
-            widget_class=QPushButton,
+            widget_class=Button,
             text="Reset to Defaults",
             font=1 / 60,
             x=7 / 12,
@@ -259,6 +260,20 @@ class Settings(Page):
             connect=self.reset,
             css_class="settings_text"
         )
+
+        # Arrow navigation
+        menu_btn.arrow_navigation(left=self.num_hidden, right=self.level_pass_threshold, up=self.reset_button, down=self.num_hidden)
+        self.theme_button.arrow_navigation(left=self.reset_button, right=self.reset_button, up=self.min_word_length, down=menu_btn)
+        self.reset_button.arrow_navigation(left=self.theme_button, right=self.theme_button, up=self.levels_per_buff, down=menu_btn)
+        self.level_pass_threshold.arrow_navigation(left=self.num_hidden, right=self.num_hidden)
+        self.starting_time.arrow_navigation(left=self.num_fake, right=self.num_fake)
+        self.min_word_length.arrow_navigation(left=self.levels_per_buff, right=self.levels_per_buff)
+        self.num_fake.arrow_navigation(left=self.starting_time, right=self.starting_time)
+        self.num_hidden.arrow_navigation(left=self.level_pass_threshold, right=self.level_pass_threshold)
+        self.levels_per_buff.arrow_navigation(left=self.min_word_length, right=self.min_word_length)
+
+        self.level_pass_threshold.setFocus()
+
 
     def reset(self):
         self.level_pass_threshold.setValue(50)

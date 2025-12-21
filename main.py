@@ -8,11 +8,6 @@ from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget
 
 # flag hidden letters with typed letter, evaluate based on flag
     # add visual cue
-# guessing field not showing?
-# Key bindings
-    # arrow navigation and tab order for each widget
-    # space/enter for each button
-    # arrows for spinboxes
 
 class Main:
 

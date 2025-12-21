@@ -16,7 +16,7 @@ QPushButton:hover {
     outline: 0;
 }
 
-QPushButton:hover {
+QPushButton:focus {
     color: #000000;
     background-color: #5ed0f2;
     border: 6px solid #0198c5;
@@ -36,6 +36,15 @@ QSpinBox {
     color: #000000;
     font-size: 24px;
     border: 2px solid #000000;
+    border-radius: 6px;
+    outline: none;
+}
+
+QSpinBox:focus {
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 24px;
+    border: 2px solid #0198c5;
     border-radius: 6px;
     outline: none;
 }
