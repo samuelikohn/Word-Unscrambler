@@ -628,7 +628,7 @@ class PauseGame(Page):
             y=1 / 2,
             width=1 / 4,
             height=1 / 3,
-            text="Current Level:\nTime per Level:\nMinimum Word Length:\nNumber of Hidden Letters:\nNumber of Fake Letters:\nDifficulty Increase Every:",
+            text="Current Level:\nTime per Level:\nNumber of Hidden Letters:\nNumber of Fake Letters:\nDifficulty Increase Every:",
             font=1 / 60,
             alignment=Qt.AlignmentFlag.AlignLeft
         )
@@ -640,7 +640,7 @@ class PauseGame(Page):
             y=1 / 2,
             width=1 / 12,
             height=1 / 3,
-            text=f"{main.Game.level_count}\n{int(main.Game.time // 10)} seconds\n{main.Game.min_length} letters\n{main.Game.num_hidden_letters}\n{main.Game.num_fake_letters}\n{main.Game.levels_per_buff} levels",
+            text=f"{main.Game.level_count}\n{int(main.Game.time // 10)} seconds\n{main.Game.num_hidden_letters}\n{main.Game.num_fake_letters}\n{main.Game.levels_per_buff} levels",
             font=1 / 60,
             alignment=Qt.AlignmentFlag.AlignRight
         )
