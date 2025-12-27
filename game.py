@@ -356,7 +356,10 @@ class PlayLetters:
 
     def delete_letter(self):
         if self.played_letters:
-            self.available_letters.append(self.played_letters.pop())
+            letter = self.played_letters.pop()
+            if letter.text().startswith("?"):
+                letter.setText("?")
+            self.available_letters.append(letter)
             self.update_upper()
             self.update_lower()
 
@@ -378,7 +381,7 @@ class PlayLetters:
             self.timer = None
 
     def enter_word(self):
-        word = "".join([letter.letter for letter in self.played_letters]).lower()
+        word = "".join([letter.text()[-1] if letter.text().startswith("?") else letter.letter for letter in self.played_letters]).lower()
         if word in self.game.words:
             found_word_obj = self.game.found_words[self.game.words[word]]
             if found_word_obj.found:
@@ -403,7 +406,7 @@ class PlayLetters:
 
                     # Unhide letters if hidden
                     for letter in self.played_letters:
-                        if letter.text() == "?":
+                        if letter.text().startswith("?"):
                             letter.setText(letter.letter)
 
                 # Advance to next level when all words are found
@@ -471,7 +474,9 @@ class PlayLetters:
         # If no match and '?' exists, type '?'
         for i, letter in enumerate(self.available_letters):
             if letter.text() == "?":
-                self.played_letters.append(self.available_letters.pop(i))
+                self.available_letters.pop(i)
+                letter.setText(f"?-{typed_letter}")
+                self.played_letters.append(letter)
                 self.update_upper()
                 self.update_lower()
                 return 

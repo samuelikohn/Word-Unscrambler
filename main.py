@@ -6,8 +6,6 @@ from PyQt6.QtCore import QEvent, QObject, Qt
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget
 
-# flag hidden letters with typed letter, evaluate based on flag
-    # add visual cue
 # expand button on page in generate and regenerate all levels
 
 class Main:
