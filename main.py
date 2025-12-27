@@ -6,7 +6,6 @@ from PyQt6.QtCore import QEvent, QObject, Qt
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget
 
-# expand button on page in generate and regenerate all levels
 
 class Main:
 

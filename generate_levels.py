@@ -1,5 +1,4 @@
 from requests import get
-from bs4 import BeautifulSoup
 from json import dump
 from os import path
 
@@ -8,27 +7,22 @@ words = [
 ]
 
 for word in words:
-    url = f"https://scrabble.merriam.com/finder/{word}"
-    response = get(url)
-    soup = BeautifulSoup(response.text, 'html.parser')
 
-    res = []
-    tags = soup.find('div', class_='sbl_word_groups').find_all('a')
-
-    for tag in tags:
-        text_value = tag.get_text(strip=True)
-        if len(text_value) >= 4: # Global min length is 4
-            res.append(text_value)
+    all_words = []
+    for i in range(4, len(word) + 1):
+        url = f"https://scrabble.merriam.com/lapi/1/sbl_finder/get_limited_data?mode=wfd&type=search&rack={word}&len={i}"
+        response = get(url)
+        all_words.extend(response.json()["data"])
 
     # Enforce pangram rule
-    if word not in res:
+    if word not in all_words:
         print(f"\"{word}\" not found in dictionary, no level was created.")
         continue
 
     letters = [letter.upper() for letter in word]
     data = {
         "letters": letters,
-        "words": res
+        "words": all_words
     }
 
     with open(f"{path.dirname(path.abspath(__file__))}/levels/{word}.json", "w") as f:
