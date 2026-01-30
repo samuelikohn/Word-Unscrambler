@@ -244,7 +244,7 @@ class Game(Page):
     def update_timer_bar(self):
         
         # Level over when time's up
-        if self.time_left == 0:
+        if self.time_left <= 0:
             self.active = False
             if self.play_letters.num_found_letters >= self.total_letters * self.level_pass_threshold:
                 self.end_level()
