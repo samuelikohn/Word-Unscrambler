@@ -414,6 +414,7 @@ class PlayLetters:
                 self.num_found_letters += len(word)
                 self.game.update_words_found()
                 if self.num_found_letters == self.game.total_letters:
+                    self.game.active = False
                     self.game.end_level()
         
         else:
