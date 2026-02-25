@@ -1,9 +1,9 @@
 {
-    "level_pass_threshold": 0.4,
-    "starting_time": 1800,
+    "level_pass_threshold": 0.2,
+    "starting_time": 300,
     "starting_min_length": 4,
     "starting_num_hidden": 0,
     "starting_num_fake": 0,
-    "levels_per_buff": 3,
+    "levels_per_buff": 10,
     "theme": "dark"
 }
