@@ -19,6 +19,7 @@ In the game settings, you can adjust the starting values for each type of diffic
 
 ## How to Run
 
+- Download/clone this repo
 - You must have Python 3 installed to run.
 - Make sure to also install the dependencies from `requirements.txt`.
 - Run `full\path\to\your\python\executable` `full\path\to\main.py` from the command line.
